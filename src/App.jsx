@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 function Square({ value, onSquareClick }) {
@@ -10,12 +11,16 @@ function Square({ value, onSquareClick }) {
 
 export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
 
   function handleClick(i) {
-    const nextSquares = squares.slice();
-    nextSquares[i] = "X";
+    if (squares[i]) return;
 
+    const nextSquares = squares.slice();
+
+    nextSquares[i] = xIsNext ? "X" : "O";
     setSquares(nextSquares);
+    setXIsNext(!xIsNext);
   }
   return (
     <div className="board">
